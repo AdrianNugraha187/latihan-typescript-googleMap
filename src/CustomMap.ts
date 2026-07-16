@@ -1,11 +1,13 @@
 /// <reference types="@types/google.maps" />
 
 //isntruksi untuk setiap class lainnya untuk menjadi argument di 'addMarker'
-interface Mappable {
+export interface Mappable {
   location: {
     lat: number;
     lng: number;
   };
+  markerContent(): string;
+  color: string;
 }
 
 export class CustomMap {
@@ -34,7 +36,7 @@ export class CustomMap {
     });
     marker.addListener("click", () => {
       const infoWindow = new google.maps.InfoWindow({
-        content: "Hello World",
+        content: mappable.markerContent(),
       });
       infoWindow.open(this.googleMap, marker); // Sekarang 'this.googleMap' akan terbaca dengan benar
     });
